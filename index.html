@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Nelson POI</title>
+		<meta charset="utf-8" />
+		<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.css" />
+		<link rel="stylesheet" type="text/css" href="css/own_style.css">
+		<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+		<script src="http://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.js"></script>
+		<script src="js/leaflet-hash.js"></script>
+		<script src="js/Autolinker.min.js"></script>
+		<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+	</head>
+	<body>
+		<div id="map"></div>
+		<script src="data/exp_LibraryMuseum.js"></script>
+		<script src="data/exp_HeritageSite.js"></script>
+		<script src="data/exp_CommunityFacilities.js"></script>
+		<script src="data/exp_Art.js"></script>
+		<script src="data/exp_Viewingplatform.js"></script>
+		<script src="data/exp_Schools.js"></script>
+		<script src="data/exp_Playground.js"></script>
+		<script src="data/exp_Openorchard.js"></script>
+		<script>
+		var map = L.map('map', {
+			zoomControl:true, maxZoom:19
+		}).fitBounds([[-41.3756667872,173.043783074],[-41.2096147653,173.46787331]]);
+		var hash = new L.Hash(map);
+		var additional_attrib = 'created w. <a href="https://github.com/geolicious/qgis2leaf" target ="_blank">qgis2leaf</a> by <a href="http://www.geolicious.de" target ="_blank">Geolicious</a> & contributors<br>';
+		var feature_group = new L.featureGroup([]);
+		var raster_group = new L.LayerGroup([]);
+		var basemap_0 = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { 
+			attribution: additional_attrib + '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors,<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'
+		});	
+		basemap_0.addTo(map);	
+		var layerOrder=new Array();
+		function pop_Openorchard(feature, layer) {					
+			var popupContent = '<table><tr><th scope="row">Type</th><td>' + Autolinker.link(String(feature.properties['Type'])) + '</td></tr><tr><th scope="row">Name</th><td>' + Autolinker.link(String(feature.properties['Name'])) + '</td></tr><tr><th scope="row">WebLinks</th><td>' + Autolinker.link(String(feature.properties['WebLinks'])) + '</td></tr><tr><th scope="row">Owner</th><td>' + Autolinker.link(String(feature.properties['Owner'])) + '</td></tr><tr><th scope="row">Council</th><td>' + Autolinker.link(String(feature.properties['Council'])) + '</td></tr><tr><th scope="row">Status</th><td>' + Autolinker.link(String(feature.properties['Status'])) + '</td></tr><tr><th scope="row">Additional</th><td>' + Autolinker.link(String(feature.properties['Additional'])) + '</td></tr><tr><th scope="row">InputBy</th><td>' + Autolinker.link(String(feature.properties['InputBy'])) + '</td></tr><tr><th scope="row">InputDate</th><td>' + Autolinker.link(String(feature.properties['InputDate'])) + '</td></tr><tr><th scope="row">ModBy</th><td>' + Autolinker.link(String(feature.properties['ModBy'])) + '</td></tr><tr><th scope="row">ModDate</th><td>' + Autolinker.link(String(feature.properties['ModDate'])) + '</td></tr></table>';
+			layer.bindPopup(popupContent);
+		}
+
+		var exp_OpenorchardJSON = new L.geoJson(exp_Openorchard,{
+			onEachFeature: pop_Openorchard,
+			pointToLayer: function (feature, latlng) {  
+				return L.circleMarker(latlng, {
+					radius: 4.0,
+					fillColor: '#db0bd4',
+					color: '#000000',
+					weight: 1,
+					opacity: 1.0,
+					fillOpacity: 1.0
+				})
+			}
+		});
+		//add comment sign to hide this layer on the map in the initial view.
+		feature_group.addLayer(exp_OpenorchardJSON);
+		function pop_Playground(feature, layer) {					
+			var popupContent = '<table><tr><th scope="row">Type</th><td>' + Autolinker.link(String(feature.properties['Type'])) + '</td></tr><tr><th scope="row">Name</th><td>' + Autolinker.link(String(feature.properties['Name'])) + '</td></tr><tr><th scope="row">WebLinks</th><td>' + Autolinker.link(String(feature.properties['WebLinks'])) + '</td></tr><tr><th scope="row">Owner</th><td>' + Autolinker.link(String(feature.properties['Owner'])) + '</td></tr><tr><th scope="row">Council</th><td>' + Autolinker.link(String(feature.properties['Council'])) + '</td></tr><tr><th scope="row">Status</th><td>' + Autolinker.link(String(feature.properties['Status'])) + '</td></tr><tr><th scope="row">Additional</th><td>' + Autolinker.link(String(feature.properties['Additional'])) + '</td></tr><tr><th scope="row">InputBy</th><td>' + Autolinker.link(String(feature.properties['InputBy'])) + '</td></tr><tr><th scope="row">InputDate</th><td>' + Autolinker.link(String(feature.properties['InputDate'])) + '</td></tr><tr><th scope="row">ModBy</th><td>' + Autolinker.link(String(feature.properties['ModBy'])) + '</td></tr><tr><th scope="row">ModDate</th><td>' + Autolinker.link(String(feature.properties['ModDate'])) + '</td></tr></table>';
+			layer.bindPopup(popupContent);
+		}
+
+		var exp_PlaygroundJSON = new L.geoJson(exp_Playground,{
+			onEachFeature: pop_Playground,
+			pointToLayer: function (feature, latlng) {  
+				return L.circleMarker(latlng, {
+					radius: 4.0,
+					fillColor: '#87f1b3',
+					color: '#000000',
+					weight: 1,
+					opacity: 1.0,
+					fillOpacity: 1.0
+				})
+			}
+		});
+		//add comment sign to hide this layer on the map in the initial view.
+		feature_group.addLayer(exp_PlaygroundJSON);
+		function pop_Schools(feature, layer) {					
+			var popupContent = '<table><tr><th scope="row">Type</th><td>' + Autolinker.link(String(feature.properties['Type'])) + '</td></tr><tr><th scope="row">Name</th><td>' + Autolinker.link(String(feature.properties['Name'])) + '</td></tr><tr><th scope="row">WebLinks</th><td>' + Autolinker.link(String(feature.properties['WebLinks'])) + '</td></tr><tr><th scope="row">Owner</th><td>' + Autolinker.link(String(feature.properties['Owner'])) + '</td></tr><tr><th scope="row">Council</th><td>' + Autolinker.link(String(feature.properties['Council'])) + '</td></tr><tr><th scope="row">Status</th><td>' + Autolinker.link(String(feature.properties['Status'])) + '</td></tr><tr><th scope="row">Additional</th><td>' + Autolinker.link(String(feature.properties['Additional'])) + '</td></tr><tr><th scope="row">InputBy</th><td>' + Autolinker.link(String(feature.properties['InputBy'])) + '</td></tr><tr><th scope="row">InputDate</th><td>' + Autolinker.link(String(feature.properties['InputDate'])) + '</td></tr><tr><th scope="row">ModBy</th><td>' + Autolinker.link(String(feature.properties['ModBy'])) + '</td></tr><tr><th scope="row">ModDate</th><td>' + Autolinker.link(String(feature.properties['ModDate'])) + '</td></tr></table>';
+			layer.bindPopup(popupContent);
+		}
+
+		var exp_SchoolsJSON = new L.geoJson(exp_Schools,{
+			onEachFeature: pop_Schools,
+			pointToLayer: function (feature, latlng) {  
+				return L.circleMarker(latlng, {
+					radius: 4.0,
+					fillColor: '#91b254',
+					color: '#000000',
+					weight: 1,
+					opacity: 1.0,
+					fillOpacity: 1.0
+				})
+			}
+		});
+		//add comment sign to hide this layer on the map in the initial view.
+		feature_group.addLayer(exp_SchoolsJSON);
+		function pop_Viewingplatform(feature, layer) {					
+			var popupContent = '<table><tr><th scope="row">Type</th><td>' + Autolinker.link(String(feature.properties['Type'])) + '</td></tr><tr><th scope="row">Name</th><td>' + Autolinker.link(String(feature.properties['Name'])) + '</td></tr><tr><th scope="row">WebLinks</th><td>' + Autolinker.link(String(feature.properties['WebLinks'])) + '</td></tr><tr><th scope="row">Owner</th><td>' + Autolinker.link(String(feature.properties['Owner'])) + '</td></tr><tr><th scope="row">Council</th><td>' + Autolinker.link(String(feature.properties['Council'])) + '</td></tr><tr><th scope="row">Status</th><td>' + Autolinker.link(String(feature.properties['Status'])) + '</td></tr><tr><th scope="row">Additional</th><td>' + Autolinker.link(String(feature.properties['Additional'])) + '</td></tr><tr><th scope="row">InputBy</th><td>' + Autolinker.link(String(feature.properties['InputBy'])) + '</td></tr><tr><th scope="row">InputDate</th><td>' + Autolinker.link(String(feature.properties['InputDate'])) + '</td></tr><tr><th scope="row">ModBy</th><td>' + Autolinker.link(String(feature.properties['ModBy'])) + '</td></tr><tr><th scope="row">ModDate</th><td>' + Autolinker.link(String(feature.properties['ModDate'])) + '</td></tr></table>';
+			layer.bindPopup(popupContent);
+		}
+
+		var exp_ViewingplatformJSON = new L.geoJson(exp_Viewingplatform,{
+			onEachFeature: pop_Viewingplatform,
+			pointToLayer: function (feature, latlng) {  
+				return L.circleMarker(latlng, {
+					radius: 4.0,
+					fillColor: '#f9a093',
+					color: '#000000',
+					weight: 1,
+					opacity: 1.0,
+					fillOpacity: 1.0
+				})
+			}
+		});
+		//add comment sign to hide this layer on the map in the initial view.
+		feature_group.addLayer(exp_ViewingplatformJSON);
+		function pop_Art(feature, layer) {					
+			var popupContent = '<table><tr><th scope="row">Type</th><td>' + Autolinker.link(String(feature.properties['Type'])) + '</td></tr><tr><th scope="row">Name</th><td>' + Autolinker.link(String(feature.properties['Name'])) + '</td></tr><tr><th scope="row">WebLinks</th><td>' + Autolinker.link(String(feature.properties['WebLinks'])) + '</td></tr><tr><th scope="row">Owner</th><td>' + Autolinker.link(String(feature.properties['Owner'])) + '</td></tr><tr><th scope="row">Council</th><td>' + Autolinker.link(String(feature.properties['Council'])) + '</td></tr><tr><th scope="row">Status</th><td>' + Autolinker.link(String(feature.properties['Status'])) + '</td></tr><tr><th scope="row">Additional</th><td>' + Autolinker.link(String(feature.properties['Additional'])) + '</td></tr><tr><th scope="row">InputBy</th><td>' + Autolinker.link(String(feature.properties['InputBy'])) + '</td></tr><tr><th scope="row">InputDate</th><td>' + Autolinker.link(String(feature.properties['InputDate'])) + '</td></tr><tr><th scope="row">ModBy</th><td>' + Autolinker.link(String(feature.properties['ModBy'])) + '</td></tr><tr><th scope="row">ModDate</th><td>' + Autolinker.link(String(feature.properties['ModDate'])) + '</td></tr></table>';
+			layer.bindPopup(popupContent);
+		}
+
+		var exp_ArtJSON = new L.geoJson(exp_Art,{
+			onEachFeature: pop_Art,
+			pointToLayer: function (feature, latlng) {  
+				return L.circleMarker(latlng, {
+					radius: 4.0,
+					fillColor: '#5eadd7',
+					color: '#000000',
+					weight: 1,
+					opacity: 1.0,
+					fillOpacity: 1.0
+				})
+			}
+		});
+		//add comment sign to hide this layer on the map in the initial view.
+		feature_group.addLayer(exp_ArtJSON);
+		function pop_CommunityFacilities(feature, layer) {					
+			var popupContent = '<table><tr><th scope="row">Type</th><td>' + Autolinker.link(String(feature.properties['Type'])) + '</td></tr><tr><th scope="row">Name</th><td>' + Autolinker.link(String(feature.properties['Name'])) + '</td></tr><tr><th scope="row">WebLinks</th><td>' + Autolinker.link(String(feature.properties['WebLinks'])) + '</td></tr><tr><th scope="row">Owner</th><td>' + Autolinker.link(String(feature.properties['Owner'])) + '</td></tr><tr><th scope="row">Council</th><td>' + Autolinker.link(String(feature.properties['Council'])) + '</td></tr><tr><th scope="row">Status</th><td>' + Autolinker.link(String(feature.properties['Status'])) + '</td></tr><tr><th scope="row">Additional</th><td>' + Autolinker.link(String(feature.properties['Additional'])) + '</td></tr><tr><th scope="row">InputBy</th><td>' + Autolinker.link(String(feature.properties['InputBy'])) + '</td></tr><tr><th scope="row">InputDate</th><td>' + Autolinker.link(String(feature.properties['InputDate'])) + '</td></tr><tr><th scope="row">ModBy</th><td>' + Autolinker.link(String(feature.properties['ModBy'])) + '</td></tr><tr><th scope="row">ModDate</th><td>' + Autolinker.link(String(feature.properties['ModDate'])) + '</td></tr></table>';
+			layer.bindPopup(popupContent);
+		}
+
+		var exp_CommunityFacilitiesJSON = new L.geoJson(exp_CommunityFacilities,{
+			onEachFeature: pop_CommunityFacilities,
+			pointToLayer: function (feature, latlng) {  
+				return L.circleMarker(latlng, {
+					radius: 4.0,
+					fillColor: '#29768d',
+					color: '#000000',
+					weight: 1,
+					opacity: 1.0,
+					fillOpacity: 1.0
+				})
+			}
+		});
+		//add comment sign to hide this layer on the map in the initial view.
+		feature_group.addLayer(exp_CommunityFacilitiesJSON);
+		function pop_HeritageSite(feature, layer) {					
+			var popupContent = '<table><tr><th scope="row">Type</th><td>' + Autolinker.link(String(feature.properties['Type'])) + '</td></tr><tr><th scope="row">Name</th><td>' + Autolinker.link(String(feature.properties['Name'])) + '</td></tr><tr><th scope="row">WebLinks</th><td>' + Autolinker.link(String(feature.properties['WebLinks'])) + '</td></tr><tr><th scope="row">Owner</th><td>' + Autolinker.link(String(feature.properties['Owner'])) + '</td></tr><tr><th scope="row">Council</th><td>' + Autolinker.link(String(feature.properties['Council'])) + '</td></tr><tr><th scope="row">Status</th><td>' + Autolinker.link(String(feature.properties['Status'])) + '</td></tr><tr><th scope="row">Additional</th><td>' + Autolinker.link(String(feature.properties['Additional'])) + '</td></tr><tr><th scope="row">InputBy</th><td>' + Autolinker.link(String(feature.properties['InputBy'])) + '</td></tr><tr><th scope="row">InputDate</th><td>' + Autolinker.link(String(feature.properties['InputDate'])) + '</td></tr><tr><th scope="row">ModBy</th><td>' + Autolinker.link(String(feature.properties['ModBy'])) + '</td></tr><tr><th scope="row">ModDate</th><td>' + Autolinker.link(String(feature.properties['ModDate'])) + '</td></tr></table>';
+			layer.bindPopup(popupContent);
+		}
+
+		var exp_HeritageSiteJSON = new L.geoJson(exp_HeritageSite,{
+			onEachFeature: pop_HeritageSite,
+			pointToLayer: function (feature, latlng) {  
+				return L.circleMarker(latlng, {
+					radius: 4.0,
+					fillColor: '#c1d225',
+					color: '#000000',
+					weight: 1,
+					opacity: 1.0,
+					fillOpacity: 1.0
+				})
+			}
+		});
+		//add comment sign to hide this layer on the map in the initial view.
+		feature_group.addLayer(exp_HeritageSiteJSON);
+		function pop_LibraryMuseum(feature, layer) {					
+			var popupContent = '<table><tr><th scope="row">Type</th><td>' + Autolinker.link(String(feature.properties['Type'])) + '</td></tr><tr><th scope="row">Name</th><td>' + Autolinker.link(String(feature.properties['Name'])) + '</td></tr><tr><th scope="row">WebLinks</th><td>' + Autolinker.link(String(feature.properties['WebLinks'])) + '</td></tr><tr><th scope="row">Owner</th><td>' + Autolinker.link(String(feature.properties['Owner'])) + '</td></tr><tr><th scope="row">Council</th><td>' + Autolinker.link(String(feature.properties['Council'])) + '</td></tr><tr><th scope="row">Status</th><td>' + Autolinker.link(String(feature.properties['Status'])) + '</td></tr><tr><th scope="row">Additional</th><td>' + Autolinker.link(String(feature.properties['Additional'])) + '</td></tr><tr><th scope="row">InputBy</th><td>' + Autolinker.link(String(feature.properties['InputBy'])) + '</td></tr><tr><th scope="row">InputDate</th><td>' + Autolinker.link(String(feature.properties['InputDate'])) + '</td></tr><tr><th scope="row">ModBy</th><td>' + Autolinker.link(String(feature.properties['ModBy'])) + '</td></tr><tr><th scope="row">ModDate</th><td>' + Autolinker.link(String(feature.properties['ModDate'])) + '</td></tr></table>';
+			layer.bindPopup(popupContent);
+		}
+
+		var exp_LibraryMuseumJSON = new L.geoJson(exp_LibraryMuseum,{
+			onEachFeature: pop_LibraryMuseum,
+			pointToLayer: function (feature, latlng) {  
+				return L.circleMarker(latlng, {
+					radius: 4.0,
+					fillColor: '#ba1701',
+					color: '#000000',
+					weight: 1,
+					opacity: 1.0,
+					fillOpacity: 1.0
+				})
+			}
+		});
+		//add comment sign to hide this layer on the map in the initial view.
+		feature_group.addLayer(exp_LibraryMuseumJSON);
+
+		feature_group.addTo(map);
+		var title = new L.Control();
+		title.onAdd = function (map) {
+			this._div = L.DomUtil.create('div', 'info'); // create a div with a class "info"
+			this.update();
+			return this._div;
+		};
+		title.update = function () {
+			this._div.innerHTML = '<h2>Nelson Points of interest</h2>Recreation locations in Nelson'
+		};
+		title.addTo(map);
+	var baseMaps = {
+		'OSM Standard': basemap_0
+	};
+		L.control.layers(baseMaps,{"LibraryMuseum": exp_LibraryMuseumJSON,"HeritageSite": exp_HeritageSiteJSON,"CommunityFacilities": exp_CommunityFacilitiesJSON,"Art": exp_ArtJSON,"Viewingplatform": exp_ViewingplatformJSON,"Schools": exp_SchoolsJSON,"Playground": exp_PlaygroundJSON,"Openorchard": exp_OpenorchardJSON},{collapsed:false}).addTo(map);
+		L.control.scale({options: {position: 'bottomleft',maxWidth: 100,metric: true,imperial: false,updateWhenIdle: false}}).addTo(map);
+	</script>
+</body>
+</html>
